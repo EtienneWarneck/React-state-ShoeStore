@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Footer from "./Footer";
 import Header from "./Header";
-import { getProducts } from "./services/productService"
+import useFetch from "./services/useFetch";
+// import { getProducts } from "./services/productService"
 import Spinner from "./Spinner"
-
 
 export default function App() {
   const [size, setSize] = useState("");
-  const [products, setProducts] = useState([]);
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(true)
+  //Make this a Custom hook and change the promise chain to be async/await...
+  // const [products, setProducts] = useState([]);
+  // const [error, setError] = useState(null)
+  // const [loading, setLoading] = useState(true)
+  // useEffect(() => {
+  //   getProducts("shoes").then((response) => setProducts(response)).catch((e) => setError(e)).finally(() => setLoading(false))
+  // }, [])
 
 
-  useEffect(() => {
-    getProducts("shoes").then((response) => setProducts(response)).catch((e) => setError(e)).finally(() => setLoading(false))
-  }, [])
+  const { data: products, loading, error } = useFetch("products?category=shoes")
+
 
   function renderProduct(p) {
     return (
