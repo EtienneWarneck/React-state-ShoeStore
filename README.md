@@ -14,4 +14,13 @@ When does React Render ?
 - custom hook
 - library
 
-Error Boudary class to handle error during the API call.
+Local state:
+
+- useState
+
+Remote state:
+
+- useEffect
+- Async calls
+- Promises and Async/Await
+- Error handling
