@@ -3,9 +3,9 @@ import { Routes, Route } from 'react-router-dom'
 import "./App.css";
 import Header from "./Header";
 import Products from "./Products";
-import Footer from "./Footer";
 import Detail from "./Detail";
 import Cart from "./Cart";
+import Footer from "./Footer";
 
 
 export default function App() {
@@ -17,7 +17,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<h1>Welcome</h1>} />
             <Route path="/:category" element={<Products />} />
-            <Route path="/detail" element={<Detail />} />
+            <Route path="/:category/:id" element={<Detail />} />
             <Route path="/cart" element={<Cart />} />
           </Routes>
         </main>

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import useFetch from "./services/useFetch";
 import Spinner from "./Spinner"
 import { useParams } from "react-router-dom";
+import PageNotFound from "./PageNotFound";
+import { Link } from "react-router-dom"
 
 export default function Products() {
     const [size, setSize] = useState("");
@@ -13,11 +15,11 @@ export default function Products() {
     function renderProduct(p) {
         return (
             <div key={p.id} className="product">
-                <a href="/">
+                <Link to={`/${category}/${p.id}`}>
                     <img src={`/images/${p.image}`} alt={p.name} />
                     <h3>{p.name}</h3>
                     <p>${p.price}</p>
-                </a>
+                </Link>
             </div>
         );
     }
@@ -25,8 +27,8 @@ export default function Products() {
     const filteredProducts = size ? products.filter((p) => p.skus.find((s) => s.size === parseInt(size))) : products;
 
     if (error) throw error;
-
     if (loading) return <Spinner />
+    if (products.length === 0) return <PageNotFound />
 
     return (
         <>
@@ -41,7 +43,7 @@ export default function Products() {
                     <option value="8">8</option>
                     <option value="9">9</option>
                 </select>
-                {size && <h2>Found {filteredProducts.length} intems</h2>}
+                {size && <h2>Found {filteredProducts.length} items</h2>}
             </section>
             <section id="products "> {filteredProducts.map(renderProduct)}</section>
         </>

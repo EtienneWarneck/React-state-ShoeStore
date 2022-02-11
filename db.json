@@ -36,6 +36,19 @@
         { "sku": "39", "size": 9 }
       ],
       "description": "Look stylish while stomping in the mud."
+    },
+    {
+      "id": 4,
+      "category": "sock",
+      "image": "shoe3.jpg",
+      "name": "Explorer",
+      "price": 145.95,
+      "skus": [
+        { "sku": "37", "size": 7 },
+        { "sku": "38", "size": 8 },
+        { "sku": "39", "size": 9 }
+      ],
+      "description": "Look stylish while stomping in the mud."
     }
   ],
   "shippingAddress": [
