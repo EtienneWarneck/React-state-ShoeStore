@@ -1,5 +1,7 @@
 ### App to test different uses of state in React.
 
+# From Pluralsight.com
+
 When does React Render ?
 
 - State change (can skip render with : ShouldComponent update, React.Memo)
