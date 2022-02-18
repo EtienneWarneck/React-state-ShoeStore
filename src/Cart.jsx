@@ -1,11 +1,12 @@
-import React, { useMemo } from 'react'
+import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import useFetchAll from "./services/useFetchAll"
 import Spinner from "./Spinner";
 
 
 export default function Cart({ cart, updateQuantity }) {
-    //inline props destructuring
-    // const { cart, updateQuantity } = props;
+
+    const navigate = useNavigate();
 
     //create array of urls for each product in the cart
     const urls = cart.map((i) => `products/${i.id}`);
@@ -36,13 +37,14 @@ export default function Cart({ cart, updateQuantity }) {
                         <option value="2">2</option>
                         <option value="3">3</option>
                     </select>
+
+
                 </div>
             </li>
         )
     }
 
-    const numItemsInCart = useMemo(
-        () => cart.reduce((total, item) => total + item.quantity, 0), [cart]);
+    const numItemsInCart = cart.reduce((total, item) => total + item.quantity, 0)
 
     if (loading) return <Spinner />;
     if (error) return error;
@@ -55,6 +57,7 @@ export default function Cart({ cart, updateQuantity }) {
                 `${numItemsInCart} Item${numItemsInCart > 1 ? "s" : ""} in my cart.`}
             </h1>
             <ul>{cart.map(renderItem)}</ul>
+            {cart.length > 0 && <button className='btn btn-primary' onClick={() => navigate("/checkout")}>Checkout</button>}
         </section>
     )
 }

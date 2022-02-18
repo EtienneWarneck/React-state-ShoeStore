@@ -6,7 +6,7 @@ import Products from "./Products";
 import Detail from "./Detail";
 import Cart from "./Cart";
 import Footer from "./Footer";
-
+import Checkout from "./Checkout"
 
 export default function App() {
 
@@ -41,16 +41,14 @@ export default function App() {
 
   function updateQuantity(sku, quantity) {
     setCart((items) => {
-      // if (quantity === 0) {
-      //   //keep all sku that don't have sku passed in if quantity is 0
-      //   return items.filter((i) => i.sku !== sku)
-      // } else {
-      //   return items.map((i) => (i.sku === sku ? { ...i, quantity } : i));
-      // }
       return quantity === 0
         ? items.filter((i) => i.sku !== sku) //remove
         : items.map((i) => i.sku === sku ? { ...i, quantity } : i) //update
     })
+  }
+
+  function emptyCart() {
+    setCart([])
   }
 
   return (
@@ -63,6 +61,7 @@ export default function App() {
             <Route path="/:category" element={<Products />} />
             <Route path="/:category/:id" element={<Detail addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cart={cart} updateQuantity={updateQuantity} />} />
+            <Route path="/checkout" element={<Checkout cart={cart} emptyCart={emptyCart} />} />
           </Routes>
         </main>
       </div>
