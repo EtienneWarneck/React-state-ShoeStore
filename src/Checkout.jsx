@@ -16,12 +16,13 @@ const emptyAddress = {
 };
 
 export default function Checkout({ cart, emptyCart }) {
-    const [address, setAddress] = useState(emptyAddress);
-    const [status, setStatus] = useState(STATUS.IDLE)
-    const [saveError, setSaveError] = useState(null)
-    const [touched, setTouched] = useState({})
 
-    //Derived state
+    const [address, setAddress] = useState(emptyAddress); //handleChange()
+    const [status, setStatus] = useState(STATUS.IDLE) //handleSubmit()
+    const [saveError, setSaveError] = useState(null) //handleSubmit()
+    const [touched, setTouched] = useState({}) //handleBlur()
+
+    //Derived state for empty address fields
     const errors = getErrors(address)
     const isValid = Object.keys(errors).length === 0;
 
@@ -74,6 +75,7 @@ export default function Checkout({ cart, emptyCart }) {
     return (
         <>
             <h1>Shipping Info</h1>
+            {/* error summary: */}
             {!isValid && status === STATUS.SUBMITTED && (
                 <div role="alert"> <p> Please fix errors :
                 </p>
