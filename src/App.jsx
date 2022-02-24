@@ -8,6 +8,7 @@ import Cart from "./Cart";
 import Footer from "./Footer";
 import Checkout from "./Checkout"
 import cartReducer from "./cartReducer";
+import { CartContext } from "./cartContext"
 
 let initialCart;
 
@@ -53,7 +54,7 @@ export default function App() {
   // }
 
   return (
-    <>
+    <CartContext.Provider value={{ cart, dispatch }}>
       <div className="content">
         <Header />
         <main>
@@ -67,6 +68,6 @@ export default function App() {
         </main>
       </div>
       <Footer />
-    </>
+    </CartContext.Provider>
   );
 }

@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useFetchAll from "./services/useFetchAll";
 import Spinner from "./Spinner";
+import { CartContext } from './cartContext';
 
 
-export default function Cart({ cart, dispatch }) {
-
+export default function Cart() {
+    const { cart, dispatch } = useContext(CartContext);
     const navigate = useNavigate();
 
     //create array of urls for each product in the cart
