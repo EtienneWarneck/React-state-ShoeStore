@@ -6,7 +6,6 @@ const STATUS = {
     SUBMITTED: "SUBMITTED",
     SUBMITTING: "SUBMITTING",
     COMPLETED: "COMPLETED"
-
 }
 
 // Declaring outside component to avoid recreation on each render
@@ -15,23 +14,23 @@ const emptyAddress = {
     country: "",
 };
 
-export default function Checkout({ cart, dispatch }) {
+export default function Checkout({ dispatch }) {
 
     const [address, setAddress] = useState(emptyAddress); //handleChange()
     const [status, setStatus] = useState(STATUS.IDLE) //handleSubmit()
     const [saveError, setSaveError] = useState(null) //handleSubmit()
     const [touched, setTouched] = useState({}) //handleBlur()
 
-    //Derived state for empty address fields
-    const errors = getErrors(address)
-    const isValid = Object.keys(errors).length === 0;
+    //Derived state for empty address fields:
+    const errors = getErrors(address) // errors = { city: 'City is required', country: 'Country is required'}
+    const isValid = Object.keys(errors).length === 0; // isValid is false unless both fields are filled in.
 
     function handleChange(e) {
         e.persist()
         setAddress((currentAddr) => {
             return {
-                ...currentAddr, //set addr to a copy of current addr
-                [e.target.id]: e.target.value //reference a property using a variable.
+                ...currentAddr,
+                [e.target.id]: e.target.value
             }
         })
     }
@@ -39,17 +38,16 @@ export default function Checkout({ cart, dispatch }) {
     function handleBlur(event) {
         event.persist()
         setTouched((curr) => {
-            return { ...curr, [event.target.id]: true } //new prop for field that was just touched
+            return { ...curr, [event.target.id]: true } //new prop for field that was just touched.
         })
     }
 
     async function handleSubmit(event) {
-        event.preventDefault(); //prevent the form from posting back to server. Keep validation on client side.
+        event.preventDefault(); //prevent the form from posting back to server.
         setStatus(STATUS.SUBMITTING)
         if (isValid) {
             try {
                 await saveShippingAddress(address);
-                // emptyCart();
                 dispatch({ type: "empty" })
                 setStatus(STATUS.COMPLETED)
             } catch (e) {
@@ -66,7 +64,6 @@ export default function Checkout({ cart, dispatch }) {
         if (!address.country) result.country = "Country is required";
         return result;
     }
-
 
     if (saveError) throw saveError;
     if (status === STATUS.COMPLETED) {
