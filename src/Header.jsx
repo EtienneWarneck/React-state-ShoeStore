@@ -15,6 +15,7 @@ export default function Header() {
               <img alt="Carved Rock Fitness" src="/images/logo.png" /></Link>
           </li>
           <li><NavLink activeStyle={activeStyle} to="/shoes">Shoes</NavLink></li>
+          <li><NavLink activeStyle={activeStyle} to="/backpacks">Backpacks</NavLink></li>
           <li><NavLink activeStyle={activeStyle} to="/cart">Cart</NavLink></li>
         </ul>
       </nav>

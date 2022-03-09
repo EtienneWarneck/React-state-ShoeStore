@@ -60,21 +60,21 @@
     },
     {
       "id": 4,
-      "category": "sock",
-      "image": "shoe3.jpg",
-      "name": "Explorer",
-      "price": 145.95,
+      "category": "backpacks",
+      "image": "backpack1.jpg",
+      "name": "Backpack",
+      "price": 245.95,
       "skus": [
         {
-          "sku": "37",
+          "sku": "7",
           "size": 7
         },
         {
-          "sku": "38",
+          "sku": "48",
           "size": 8
         },
         {
-          "sku": "39",
+          "sku": "49",
           "size": 9
         }
       ],
@@ -86,11 +86,6 @@
       "id": 1,
       "city": "",
       "country": ""
-    },
-    {
-      "city": "Brooklyn",
-      "country": "China",
-      "id": 2
     }
   ]
 }
