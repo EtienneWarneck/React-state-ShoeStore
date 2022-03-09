@@ -10,11 +10,13 @@ import { useCart } from './cartContext';
 
 export default function Detail() {
     const { dispatch } = useCart();
-    const { id } = useParams();
+    const { id, category } = useParams();
     const navigate = useNavigate();
     const [sku, setSku] = useState("")
 
     const { data: product, loading, error } = useFetch(`products/${id}`)
+
+
 
     if (loading) return <Spinner />
     if (!product) return <PageNotFound />
@@ -26,19 +28,22 @@ export default function Detail() {
             <h1>{product.name}</h1>
             <p>{product.description}</p>
             <p id="price">${product.price}</p>
-            <select id="size" value={sku} onChange={(e) => {
-                // debugger;
-                setSku(e.target.value)
-            }}>
-                <option value="">What size?</option>
+            {category === "backpacks" ? <h1></h1> :
+                <select id="size" value={sku} onChange={(e) => {
+                    // debugger;
+                    setSku(e.target.value)
+                }}>
+                    <option value="">What size?</option>
 
-                {product.skus.map((s) => (
-                    <option key={s.sku} value={s.sku} >{s.size}</option>
-                ))}
+                    {product.skus.map((s) => (
+                        <option key={s.sku} value={s.sku} >{s.size}</option>
+                    ))}
 
-            </select>
+                </select>
+            }
             <p>
-                <button disabled={!sku} className="btn btn-primary" onClick={() => {
+
+                <button disabled={category === "shoes" && !sku} className="btn btn-primary" onClick={() => {
                     dispatch({ type: "add", id: id, sku: sku })
                     navigate("/cart")
                 }} >Add to cart</button>

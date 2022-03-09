@@ -17,7 +17,7 @@ export default function Cart() {
     function renderItem(itemInCart) {
         const { id, sku, quantity } = itemInCart;
         const { price, name, image, skus } = products.find((p) => p.id === parseInt(id));
-        const { size } = skus.find((s) => s.sku === sku)
+        const { size } = skus.find((s) => s.sku.size === sku.size)
 
         return (
             <li key={sku} className="cart-item">

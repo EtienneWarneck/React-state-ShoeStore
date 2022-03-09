@@ -64,20 +64,12 @@
       "image": "backpack1.jpg",
       "name": "Backpack",
       "price": 245.95,
-      "skus": [
+     "skus": [
         {
-          "sku": "7",
-          "size": 7
-        },
-        {
-          "sku": "48",
-          "size": 8
-        },
-        {
-          "sku": "49",
-          "size": 9
-        }
-      ],
+          "sku": "47",
+        "size":0
+      }
+        ],
       "description": "Look stylish while stomping in the mud."
     }
   ],
