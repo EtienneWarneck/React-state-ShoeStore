@@ -6,7 +6,7 @@ import Products from "./Products";
 import Detail from "./Detail";
 import Cart from "./Cart";
 import Footer from "./Footer";
-import Checkout from "./Checkout.class" // class
+import Checkout from "./Checkout"
 import { useCart } from './cartContext';
 
 // let initialCart;

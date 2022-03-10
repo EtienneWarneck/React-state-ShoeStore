@@ -64,20 +64,28 @@
       "image": "backpack1.jpg",
       "name": "Backpack",
       "price": 245.95,
-     "skus": [
+      "skus": [
         {
           "sku": "47",
-        "size":0
-      }
-        ],
+          "size": 0
+        }
+      ],
       "description": "Look stylish while stomping in the mud."
     }
   ],
   "shippingAddress": [
     {
       "id": 1,
+      "street": "",
       "city": "",
       "country": ""
+    }
+  ],
+  "billingInfo": [
+    {
+      "id": 1,
+      "name": "",
+      "cardNumber": ""
     }
   ]
 }

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { saveShippingAddress } from "./services/shippingService"
+import { saveBillingInfo } from "./services/billingServices"
 import { useCart } from './cartContext';
-import Billing from './Billing'
 
 const STATUS = {
     IDLE: "IDLE",
@@ -11,32 +10,27 @@ const STATUS = {
 }
 
 // Declaring outside component to avoid recreation on each render
-const emptyAddress = {
-    street: "",
-    city: "",
-    country: "",
+const emptyBilling = {
+    name: "",
+    card: ""
 };
 
-
-
-
-
-export default function Checkout() {
+export default function Billing() {
     const { dispatch } = useCart();
-    const [address, setAddress] = useState(emptyAddress); //handleChange()
+    const [billing, setBilling] = useState(emptyBilling); //handleChange()
     const [status, setStatus] = useState(STATUS.IDLE) //handleSubmit()
     const [saveError, setSaveError] = useState(null) //handleSubmit()
     const [touched, setTouched] = useState({}) //handleBlur()
 
-    //Derived state for empty address fields:
-    const errors = getErrors(address) // errors = { city: 'City is required', country: 'Country is required'}
+    //Derived state for empty billing fields:
+    const errors = getErrors(billing) // errors = { card: 'City is required', country: 'Country is required'}
     const isValid = Object.keys(errors).length === 0; // isValid is false unless both fields are filled in.
 
     function handleChange(e) {
         e.persist()
-        setAddress((currentAddr) => {
+        setBilling((currentBill) => {
             return {
-                ...currentAddr,
+                ...currentBill,
                 [e.target.id]: e.target.value
             }
         })
@@ -54,7 +48,7 @@ export default function Checkout() {
         setStatus(STATUS.SUBMITTING)
         if (isValid) {
             try {
-                await saveShippingAddress(address);
+                await saveBillingInfo(billing);
                 dispatch({ type: "empty" })
                 setStatus(STATUS.COMPLETED)
             } catch (e) {
@@ -65,24 +59,23 @@ export default function Checkout() {
         }
     }
 
-    function getErrors(address) {
+    function getErrors(billing) {
         const result = {};
-        if (!address.street) result.street = "Street is required";
-        if (!address.city) result.city = "City is required";
-        if (!address.country) result.country = "Country is required";
+        if (!billing.name) result.name = "name is required";
+        if (!billing.card) result.card = "City is required";
         return result;
     }
 
     if (saveError) throw saveError;
     if (status === STATUS.COMPLETED) {
         return <>
-            <Billing />
+            <h2>Thank you for shopping</h2>
         </>
     }
 
     return (
         <>
-            <h1>Shipping Info</h1>
+            <h1>Billing Info</h1>
             {/* error summary: */}
             {!isValid && status === STATUS.SUBMITTED && (
                 <div role="alert"> <p> Please fix errors :
@@ -96,47 +89,31 @@ export default function Checkout() {
             )}
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="street">Street</label>
+                    <label htmlFor="name">Name</label>
                     <br />
                     <input
-                        id="street"
+                        id="name"
                         type="text"
-                        value={address.street}
+                        value={billing.name}
                         onBlur={handleBlur}
                         onChange={handleChange}
                     />
-                    <p role="alert">{(touched.street || status === STATUS.SUBMITTED) && errors.street}</p>
+                    <p role="alert">{(touched.name || status === STATUS.SUBMITTED) && errors.name}</p>
                 </div>
                 <div>
-                    <label htmlFor="city">City</label>
+                    <label htmlFor="card">Card</label>
                     <br />
                     <input
-                        id="city"
+                        id="card"
                         type="text"
-                        value={address.city}
+                        value={billing.card}
                         onBlur={handleBlur}
                         onChange={handleChange}
                     />
-                    <p role="alert">{(touched.city || status === STATUS.SUBMITTED) && errors.city}</p>
+                    <p role="alert">{(touched.card || status === STATUS.SUBMITTED) && errors.card}</p>
                 </div>
 
-                <div>
-                    <label htmlFor="country">Country</label>
-                    <br />
-                    <select
-                        id="country"
-                        value={address.country}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                    >
-                        <option value="">Select Country</option>
-                        <option value="China">China</option>
-                        <option value="India">India</option>
-                        <option value="United Kingdom">United Kingdom</option>
-                        <option value="USA">USA</option>
-                    </select>
-                    <p role="alert">{(touched.country || status === STATUS.SUBMITTED) && errors.country}</p>
-                </div>
+
 
                 <div>
                     <input
