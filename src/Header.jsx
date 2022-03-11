@@ -1,11 +1,14 @@
 import React from "react";
 import { Link, NavLink } from 'react-router-dom'
+import { useCart } from './cartContext';
 
 const activeStyle = {
   color: "purple"
 }
 
 export default function Header() {
+  const { cart, dispatch } = useCart();
+  const numItemsInCart = cart.reduce((total, item) => total + item.quantity, 0);
   return (
     <header>
       <nav>
@@ -16,7 +19,7 @@ export default function Header() {
           </li>
           <li><NavLink activeStyle={activeStyle} to="/shoes">Shoes</NavLink></li>
           <li><NavLink activeStyle={activeStyle} to="/backpacks">Backpacks</NavLink></li>
-          <li><NavLink activeStyle={activeStyle} to="/cart">Cart</NavLink></li>
+          <li><NavLink activeStyle={activeStyle} to="/cart">Cart : {numItemsInCart}</NavLink></li>
         </ul>
       </nav>
     </header>
