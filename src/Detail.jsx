@@ -15,7 +15,7 @@ export default function Detail() {
     const [sku, setSku] = useState("")
 
     const { data: product, loading, error } = useFetch(`products/${id}`)
-
+    console.log("Detail.js useFetch product by id)", useFetch(`products/${id}`))
 
 
     if (loading) return <Spinner />
@@ -30,7 +30,7 @@ export default function Detail() {
             <p id="price">${product.price}</p>
             {category === "backpacks" ? <h1></h1> :
                 <select id="size" value={sku} onChange={(e) => {
-                    // debugger;
+                    //debugger;
                     setSku(e.target.value)
                 }}>
                     <option value="">What size?</option>

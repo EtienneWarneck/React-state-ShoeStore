@@ -4,15 +4,17 @@ import useFetchAll from "./services/useFetchAll";
 import Spinner from "./Spinner";
 import { useCart } from './cartContext';
 
-
 export default function Cart() {
     const { cart, dispatch } = useCart();
     const navigate = useNavigate();
 
     //create array of urls for each product in the cart
     const urls = cart.map((i) => `products/${i.id}`);
-    //call custom hook with mulitple simultaneous requests to each product in cart
+    console.log("cart.js map through id number", urls)
+
+    //call custom hook with multiple simultaneous requests to each product in cart
     const { data: products, loading, error } = useFetchAll(urls)
+    console.log("cart.js useFetchAll(urls)", useFetchAll(urls))
 
     function renderItem(itemInCart) {
         const { id, sku, quantity } = itemInCart;

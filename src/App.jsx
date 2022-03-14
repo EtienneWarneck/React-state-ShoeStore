@@ -2,7 +2,8 @@ import React from "react";
 import { Routes, Route } from 'react-router-dom'
 import "./App.css";
 import Header from "./Header";
-import Products from "./Products";
+// import Products from "./Products";
+import ProductsSWR from "./ProductsSWR";
 import Detail from "./Detail";
 import Cart from "./Cart";
 import Footer from "./Footer";
@@ -61,7 +62,8 @@ export default function App() {
         <main>
           <Routes>
             <Route path="/" element={<h1>Welcome</h1>} />
-            <Route path="/:category" element={<Products />} />
+            {/* <Route path="/:category" element={<Products />} /> */}
+            <Route path="/:category" element={<ProductsSWR />} />
             <Route path="/:category/:id" element={<Detail />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout dispatch={dispatch} />} />
