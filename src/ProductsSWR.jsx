@@ -8,28 +8,27 @@ import useSWR from 'swr'
 import fetch from 'unfetch'
 
 
-const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
-
-function useCategory() {
-    const { data, loading, error } = useSWR(baseUrl + `products`, fetcher)
-    console.log("HERE", data)
-    return {
-        products: data,
-        loading: !error && !data,
-        error: error
-    }
-}
-
-export default function ProductsSWR({ category }) {
+export default function ProductsSWR() {
     const [size, setSize] = useState("");
-    // const { category } = useParams()
+    const { category } = useParams()
+
+
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
+    const fetcher = (...args) => fetch(...args).then(res => res.json())
+
+    function useCategory(category) {
+        const { data, error } = useSWR(baseUrl + `products?category=${category}`, fetcher)
+        console.log("HERE", data)
+        return {
+            products: data,
+            loading: !error && !data,
+            error: error
+        }
+    }
 
     const { products, loading, error } = useCategory(category)
-
-
-
 
     function renderProduct(p) {
         return (
